@@ -24,8 +24,7 @@ export const runForceGraph = (
                        .force("charge", d3.forceManyBody().strength(-150))
                        .force("center", d3.forceCenter(width / 2, height / 2))
   
-  // Add a svg element to draw nodes and links
-  // and call zoom function
+  // Add a svg element to draw nodes and links and call zoom function
   const svg = d3.select(container).append("svg")
                 .attr("viewBox", [0, 0, width, height])
                 .call(d3.zoom().on("zoom", (event) => g.attr("transform", event.transform))
@@ -51,7 +50,7 @@ export const runForceGraph = (
   // Handle the behavior of drag events
   const dragHandler = (simulation) => {
     const dragstarted = (event) => {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
+      if (!event.active) simulation.alphaTarget(0.5).restart();
       event.subject.fx = event.subject.x;
       event.subject.fy = event.subject.y;
     };
@@ -107,22 +106,29 @@ export const runForceGraph = (
     div.transition().duration(200).style("opacity", 0);
   };
   
-  function resetData() {
-    const nodeIds = nodes.map(node => node.id)
-    nodesData.forEach((node) => {
-      if (nodeIds.indexOf(node.id) === -1) {
-        nodes.push(node)
-      }
-    })
-    links = linksData;
-  }
+  nodes = nodes.sort((a,b) => d3.ascending(a.id, b.id));
+  nodes.unshift({
+    "id": "All Characters"
+  });
+  d3.select("#selectButton")
+                    .selectAll("myOptions")
+                    .data(nodes)
+                    .enter()
+                    .append("option")
+                    .text((d) => d.id.split("-").join(" "))
+                    .attr("value", (d) => d.id);
 
   const filterData = (filterId) => {
-    const filteredLinks = linksData.filter(d => d.source === filterId || d.target === filterId).map(d => Object.assign({}, d));
-    const relatedNodes = filteredLinks.map(d => d.source !== filterId ? d.source : d.target)
-    const filteredNodes = nodesData.filter(d => d.id === filterId || relatedNodes.indexOf(d.id) >= 0).map(d => Object.assign({}, d));
-    links = filteredLinks;
-    nodes = filteredNodes;
+    if (filterId !== "All Characters") {
+      const filteredLinks = linksData.filter(d => d.source === filterId || d.target === filterId).map(d => Object.assign({}, d));
+      const relatedNodes = filteredLinks.map(d => d.source !== filterId ? d.source : d.target)
+      const filteredNodes = nodesData.filter(d => d.id === filterId || relatedNodes.indexOf(d.id) >= 0).map(d => Object.assign({}, d));
+      links = filteredLinks;
+      nodes = filteredNodes;
+    } else {
+      links = linksData.map((d) => Object.assign({}, d));
+      nodes = nodesData.map((d) => Object.assign({}, d));
+    }
     updateSimulation();
   }
 
@@ -147,35 +153,26 @@ export const runForceGraph = (
                                   .attr("text-anchor", "start")
                                   .attr("dominant-baseline", "central")
                                   .attr("fill", "white")
-                                  .text((d) => d.id)
+                                  .text((d) => d.id.split("-").join(" "))
                                   .attr("font-size", 10)
                                   .call(dragHandler(simulation));
     textElements = textEnter.merge(textElements);
 
     // Call mouse over and mouse out event on label element
     textElements.on("mouseover", (event, d) => addTooltip(nodeHoverTooltip, d, event.pageX, event.pageY))
-                .on("mouseout", () => removeTooltip());
+                .on("mouseout", () => removeTooltip())
 
-    d3.select("#selectButton")
-      .selectAll("myOptions")
-      .data(nodes)
-      .enter()
-      .append("option")
-      .text((d) => d.id)
-      .attr("value", (d) => d.id);
     d3.select("#selectButton").on("change", (d) => {
       let filterId = d3.select("#selectButton").node().value;
       filterData(filterId);
     })
-    d3.select()
   }
 
   const updateSimulation = () => {
     updateGraph();
-
     simulation.nodes(nodes).on("tick", () => tickHandler())
     simulation.force('link').links(links);
-    simulation.restart();
+    simulation.alphaTarget(0.5).restart();
   }
   updateSimulation()
 
