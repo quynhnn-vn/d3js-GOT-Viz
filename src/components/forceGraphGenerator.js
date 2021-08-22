@@ -12,7 +12,6 @@ export const runForceGraph = (
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));
 
-    // Get width and height of the container
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
@@ -37,6 +36,30 @@ export const runForceGraph = (
   const linkGroup = g.append('g').attr('class', 'links').attr("stroke", "#999").attr("stroke-opacity", 0.2)
   const nodeGroup = g.append('g').attr('class', 'nodes')
   const textGroup = g.append('g').attr('class', 'texts')
+
+  d3.select("#selectStark").on("click", () => changeGraph("Stark"));
+  d3.select("#selectBaratheon").on("click", () => changeGraph("Baratheon"));
+  d3.select("#selectLannister").on("click", () => changeGraph("Lannister"));
+  d3.select("#selectTargaryen").on("click", () => changeGraph("Targaryen"));
+
+  const changeGraph = (houseName) => {
+    const houseNodes = nodesData.filter(d => d.id.includes(houseName));
+    let newFilteredLinks = [];
+    let newFilteredNodes = [];
+    houseNodes.forEach(node => {
+      const filteredLinks = linksData.filter(d => d.source === node.id || d.target === node.id).map(d => Object.assign({}, d));
+      newFilteredLinks.push(filteredLinks);
+      const relatedNodes = filteredLinks.map(d => d.source !== node.id ? d.source : d.target)
+      newFilteredNodes.push(nodesData.filter(d => d.id === node.id || relatedNodes.indexOf(d.id) >= 0).map(d => Object.assign({}, d)));
+    });
+    newFilteredLinks = [].concat(...newFilteredLinks);
+    const flattedFilteredNodes = [].concat(...newFilteredNodes);
+    newFilteredNodes = [...new Map(flattedFilteredNodes.map(item => [item["id"], item])).values()];
+    links = newFilteredLinks;
+    nodes = newFilteredNodes;
+
+    updateSimulation();
+  }
 
   // Calculate number of links connected to a node in order to define the radius of node
   const getNodeSize = (d) => {
@@ -110,7 +133,7 @@ export const runForceGraph = (
   nodes.unshift({
     "id": "All Characters"
   });
-  d3.select("#selectButton")
+  d3.select("#selectList")
                     .selectAll("myOptions")
                     .data(nodes)
                     .enter()
@@ -143,7 +166,7 @@ export const runForceGraph = (
     nodeElements.exit().remove();
     const nodeEnter = nodeElements.join("circle")
                                   .attr("r", (d) => (getNodeSize(d) ? getNodeSize(d) * 1.5 : 5))
-                                  .attr("fill", "white").attr("opacity", 0.3)
+                                  .attr("fill", "white").attr("opacity", 0.5)
                                   .call(dragHandler(simulation));
     nodeElements = nodeEnter.merge(nodeElements);
 
@@ -154,7 +177,7 @@ export const runForceGraph = (
                                   .attr("dominant-baseline", "central")
                                   .attr("fill", "white")
                                   .text((d) => d.id.split("-").join(" "))
-                                  .attr("font-size", 10)
+                                  .attr("font-size", 12)
                                   .call(dragHandler(simulation));
     textElements = textEnter.merge(textElements);
 
@@ -162,8 +185,8 @@ export const runForceGraph = (
     textElements.on("mouseover", (event, d) => addTooltip(nodeHoverTooltip, d, event.pageX, event.pageY))
                 .on("mouseout", () => removeTooltip())
 
-    d3.select("#selectButton").on("change", (d) => {
-      let filterId = d3.select("#selectButton").node().value;
+    d3.select("#selectList").on("change", (d) => {
+      let filterId = d3.select("#selectList").node().value;
       filterData(filterId);
     })
   }
