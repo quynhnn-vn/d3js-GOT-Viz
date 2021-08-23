@@ -181,9 +181,9 @@ export const runForceGraph = (
                                   .call(dragHandler(simulation));
     textElements = textEnter.merge(textElements);
 
-    // Call mouse over and mouse out event on label element
+    // Call mouse over and mouse out event on label elements
     textElements.on("mouseover", (event, d) => addTooltip(nodeHoverTooltip, d, event.pageX, event.pageY))
-                .on("mouseout", () => removeTooltip())
+                .on("mouseout", () => removeTooltip());   
 
     d3.select("#selectList").on("change", (d) => {
       let filterId = d3.select("#selectList").node().value;

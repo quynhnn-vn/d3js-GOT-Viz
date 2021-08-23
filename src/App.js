@@ -34,7 +34,7 @@ function App() {
     </div>`;
     } else {
       return `<div>
-      ${node.id}
+      <h4>${node.id}</h4>
       </div>`;
     }
   }, []);
@@ -44,11 +44,11 @@ function App() {
       <header className="App-header">
         <h1> Game of Thrones Character Network </h1>
         <div className="Filter">
-          <select id="selectList" className="option"></select>
-          <button id="selectStark">House Stark</button>
-          <button id="selectBaratheon">House Baratheon</button>
-          <button id="selectLannister">House Lannister</button>
-          <button id="selectTargaryen">House Targaryen</button>
+          <select id="selectList" className="optionList"></select>
+          <button id="selectStark" className="optionButton">House Stark</button>
+          <button id="selectBaratheon" className="optionButton">House Baratheon</button>
+          <button id="selectLannister" className="optionButton">House Lannister</button>
+          <button id="selectTargaryen" className="optionButton">House Targaryen</button>
         </div>
       </header>
       <section className="Main">

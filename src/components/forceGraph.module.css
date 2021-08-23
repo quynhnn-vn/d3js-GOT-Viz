@@ -10,22 +10,24 @@
   height: 100%;
 }
 
-.label {
-  fill: rgb(22, 130, 218);
-}
-
 .node text {
   font: 12px sans-serif;
 }
 
 .tooltip {
+  max-width: 250px;
+  min-width: 100px;
   position: absolute;
   text-align: center;
-  width: 150px;
-  padding: 10px;
-  font: 12px sans-serif;
-  background: lightsteelblue;
+  font: 500 0.8rem 'Cinzel', serif;
+  background: #242424;
+  color: white;
   border: 0;
-  border-radius: 8px;
+  padding: 0 5px;
+  border-radius: 2%;
   pointer-events: none;
+}
+
+.tooltip h4 {
+  font-size: 1rem;
 }
