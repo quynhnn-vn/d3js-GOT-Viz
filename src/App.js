@@ -1,47 +1,48 @@
 import React from "react";
+import "./App.css";
 import nodes from "./data/nodes.json";
 import links from "./data/links.json";
-import { ForceGraph } from "./components/forceGraph";
-import "./App.css";
 import characters from "./data/characters.json";
+import { ForceGraph } from "./components/forceGraph";
 
-function App() {
-  const nodeHoverTooltip = React.useCallback((node) => {
-    const item = characters.filter((character) => {
+const App = () => {
+  const renderTooltip = React.useCallback((node) => {
+    const filteredCharacters = characters.filter((character) => {
       const name = character.characterName.split(" ").join("-");
       return name.includes(node.id);
     });
-    if (item[0]) {
+    // Select the first matched item of filteredCharacters array to render tooltip
+    if (filteredCharacters[0]) {
       return `<div>
-      <h4>${item[0].characterName ? item[0].characterName : node.id}</h4>
-      ${
-        item[0].characterImageThumb
-          ? `<img src=${item[0].characterImageThumb} alt=""/>`
-          : ""
-      }
-      <p>${item[0].houseName ? "House: " + item[0].houseName : ""}</p>
-      <p>${item[0].actorName ? "Actor: " + item[0].actorName : ""}</p>
-      <p>${item[0].parents ? "Parents: " + item[0].parents : ""}</p>
-      <p>${item[0].sibling ? "Siblings: " + item[0].siblings : ""}</p>
-      <p>${
-        item[0].marriedEngaged
-          ? "Married or Engaged to: " + item[0].marriedEngaged
-          : ""
-      }</p>
-      <p>${item[0].parentOf ? "Parent of: " + item[0].parentOf : ""}</p>
-      <p>${item[0].killed ? "Killed: " + item[0].killed : ""}</p>
-      <p>${item[0].killedBy ? "Killed by: " + item[0].killedBy : ""}</p>
-    </div>`;
+        <h4>${filteredCharacters[0].characterName ? filteredCharacters[0].characterName : node.id}</h4>
+        ${
+          filteredCharacters[0].characterImageThumb
+            ? `<img src=${filteredCharacters[0].characterImageThumb} alt=""/>`
+            : ""
+        }
+        <p>${filteredCharacters[0].houseName ? "House: " + filteredCharacters[0].houseName : ""}</p>
+        <p>${filteredCharacters[0].actorName ? "Actor: " + filteredCharacters[0].actorName : ""}</p>
+        <p>${filteredCharacters[0].parents ? "Parents: " + filteredCharacters[0].parents : ""}</p>
+        <p>${filteredCharacters[0].sibling ? "Siblings: " + filteredCharacters[0].siblings : ""}</p>
+        <p>${
+          filteredCharacters[0].marriedEngaged
+            ? "Married or Engaged to: " + filteredCharacters[0].marriedEngaged
+            : ""
+        }</p>
+        <p>${filteredCharacters[0].parentOf ? "Parent of: " + filteredCharacters[0].parentOf : ""}</p>
+        <p>${filteredCharacters[0].killed ? "Killed: " + filteredCharacters[0].killed : ""}</p>
+        <p>${filteredCharacters[0].killedBy ? "Killed by: " + filteredCharacters[0].killedBy : ""}</p>
+      </div>`;
     } else {
       return `<div>
-      <h4>${node.id}</h4>
+        <h4>${node.id}</h4>
       </div>`;
     }
   }, []);
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="Header">
         <h1> Game of Thrones Character Network </h1>
         <div className="Filter">
           <select id="selectList" className="optionList"></select>
@@ -55,7 +56,7 @@ function App() {
         <ForceGraph
           linksData={links}
           nodesData={nodes}
-          nodeHoverTooltip={nodeHoverTooltip}
+          renderTooltip={renderTooltip}
         />
       </section>
     </div>

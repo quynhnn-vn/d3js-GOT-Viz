@@ -6,7 +6,7 @@
   background-size: cover;
 }
 
-.App-header {
+.Header {
   min-height: 50px;
   display: flex;
   flex-direction: column;
