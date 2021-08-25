@@ -6,7 +6,7 @@ This project was builed with [Create React App](https://github.com/facebook/crea
 
 ## Dataset
 
-This project uses (Game of Thrones Book 1)[https://www.kaggle.com/mmmarchetti/game-of-thrones-dataset] dataset from [Kaggle](https://www.kaggle.com/), which was saved in `/data/links.json` file. This dataset constitutes 5 columns: `source`, `target`, `type`, `value` and `book`. `Source` and `target` are the two nodes are linked by an edge. A network can have directed or undirected edges and in this network all the edges are undirected `type`. The `value` attribute of every edge tells us the number of interactions that the characters have had over the book, and the `book` column tells us the book number.
+This project uses [Game of Thrones Book 1](https://www.kaggle.com/mmmarchetti/game-of-thrones-dataset) dataset from [Kaggle](https://www.kaggle.com/), which was saved in `/data/links.json` file. This dataset constitutes 5 columns: `source`, `target`, `type`, `value` and `book`. `Source` and `target` are the two nodes are linked by an edge. A network can have directed or undirected edges and in this network all the edges are undirected `type`. The `value` attribute of every edge tells us the number of interactions that the characters have had over the book, and the `book` column tells us the book number.
 
 In data directory, there are also a `nodes.json` file where saved all nodes data and will become `source` or `target` in `links.json` file, and `characters.json` file contains the detailed information of the characters.
 
