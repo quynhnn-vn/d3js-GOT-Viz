@@ -1,17 +1,12 @@
 .container {
   width: 100%;
-  height: 100vh;
+  height: 120vh;
   position: relative;
-}
-
-.container svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.node text {
-  font: 12px sans-serif;
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .tooltip {
@@ -26,8 +21,7 @@
   padding: 0 5px;
   border-radius: 2%;
   pointer-events: none;
-}
-
-.tooltip h4 {
-  font-size: 1rem;
+  h4 {
+    font-size: 1rem;
+  }
 }

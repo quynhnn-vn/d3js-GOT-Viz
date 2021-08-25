@@ -1,9 +1,9 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import nodes from "./data/nodes.json";
 import links from "./data/links.json";
 import characters from "./data/characters.json";
-import { ForceGraph } from "./components/forceGraph";
+import { ForceDirectedGraph } from "./components/forceDirectedGraph";
 
 const App = () => {
   const renderTooltip = React.useCallback((node) => {
@@ -41,19 +41,19 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <header className="Header">
+    <div className="app">
+      <header className="header">
         <h1> Game of Thrones Character Network </h1>
-        <div className="Filter">
-          <select id="selectList" className="optionList"></select>
-          <button id="selectStark" className="optionButton">House Stark</button>
-          <button id="selectBaratheon" className="optionButton">House Baratheon</button>
-          <button id="selectLannister" className="optionButton">House Lannister</button>
-          <button id="selectTargaryen" className="optionButton">House Targaryen</button>
+        <div className="filter">
+          <select id="selectList"></select>
+          <button id="selectStark">House Stark</button>
+          <button id="selectBaratheon">House Baratheon</button>
+          <button id="selectLannister">House Lannister</button>
+          <button id="selectTargaryen">House Targaryen</button>
         </div>
       </header>
-      <section className="Main">
-        <ForceGraph
+      <section className="main">
+        <ForceDirectedGraph
           linksData={links}
           nodesData={nodes}
           renderTooltip={renderTooltip}

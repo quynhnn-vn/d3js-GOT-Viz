@@ -1,8 +1,8 @@
 import * as d3 from "d3";
-import styles from "./forceGraph.module.css";
+import styles from "./forceDirectedGraph.module.scss";
 
 // Function that will be responsibe to generate the graph
-export const runForceGraph = (
+export const runForceDirectedGraph = (
   container,
   linksData,
   nodesData,
@@ -155,10 +155,10 @@ export const runForceGraph = (
                     .attr("value", (d) => d.id);
 
   // Add 4 buttons to filter nodes of 4 big houses
-  d3.select("#selectStark").on("click", () => updateGraphByHouse("Stark"));
-  d3.select("#selectBaratheon").on("click", () => updateGraphByHouse("Baratheon"));
-  d3.select("#selectLannister").on("click", () => updateGraphByHouse("Lannister"));
-  d3.select("#selectTargaryen").on("click", () => updateGraphByHouse("Targaryen"));
+  d3.select("#selectStark").attr("class", "button").on("click", () => updateGraphByHouse("Stark"));
+  d3.select("#selectBaratheon").attr("class", "button").on("click", () => updateGraphByHouse("Baratheon"));
+  d3.select("#selectLannister").attr("class", "button").on("click", () => updateGraphByHouse("Lannister"));
+  d3.select("#selectTargaryen").attr("class", "button").on("click", () => updateGraphByHouse("Targaryen"));
 
   // Handle change option event: update graph by character name
   const updateGraphByCharacter = (characterName) => {

@@ -1,12 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
-.App {
-  text-align: center;
-  font-family: 'Cinzel', serif;
+body {
+  margin: 0;
+  font-family: 'Cinzel', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-image: url("./background.jpg");
-  background-size: cover;
+}
+.app {
+  text-align: center;
 }
 
-.Header {
+.header {
   min-height: 50px;
   display: flex;
   flex-direction: column;
@@ -16,7 +22,7 @@
   background-color: white;
 }
 
-.Filter {
+.filter {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -31,10 +37,9 @@ select {
   letter-spacing: 0.05rem;
   cursor: pointer;
   border: solid 1px white;
-}
-
-select:hover {
-  border: solid 1px #282c34;
+  &:hover {
+    border: solid 1px #282c34;
+  }
 }
 
 option:checked {
@@ -42,7 +47,7 @@ option:checked {
   background-color: #565b64;
 }
 
-.optionButton {
+.button {
   background: none;
   color: #282c34;
   cursor: pointer;
@@ -51,8 +56,7 @@ option:checked {
   letter-spacing: 0.05rem;
   border: solid 1px white;
   font: 500 1rem 'Cinzel', serif;
-}
-
-.optionButton:hover, .optionButton:focus {
-  border: solid 1px #282c34;
+  &:hover, &:focus {
+    border: solid 1px #282c34;
+  }
 }
