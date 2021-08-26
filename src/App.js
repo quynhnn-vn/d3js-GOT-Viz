@@ -43,7 +43,7 @@ const App = () => {
   return (
     <div className="app">
       <header className="header">
-        <h1> Game of Thrones Character Network </h1>
+        <h1>Game&nbsp;of&nbsp;Thrones Character&nbsp;Network</h1>
         <div className="filter">
           <select id="selectList"></select>
           <button id="selectStark">House Stark</button>

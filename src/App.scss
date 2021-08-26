@@ -20,6 +20,12 @@ body {
   justify-content: space-between;
   color: #282c34;
   background-color: white;
+  @media (max-width: 600px) {
+    h1 {
+      display: inline;
+      font-size: 25px;
+    }
+  }
 }
 
 .filter {
@@ -27,15 +33,22 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   column-gap: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.05rem;
+  margin-bottom: 5px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    row-gap: 5px;
+  }
 }
 
 select {
   font: 500 1rem 'Cinzel', serif;
-  line-height: 1.5;
-  padding: 1em 0.5em;
-  letter-spacing: 0.05rem;
+  padding: 9px;
   cursor: pointer;
+  border-radius: 5px;
   border: solid 1px white;
   &:hover {
     border: solid 1px #282c34;
@@ -50,12 +63,12 @@ option:checked {
 .button {
   background: none;
   color: #282c34;
+  padding: 10px;
   cursor: pointer;
-  line-height: 1.5;
-  padding: 1em 1em;
-  letter-spacing: 0.05rem;
   border: solid 1px white;
+  border-radius: 5px;
   font: 500 1rem 'Cinzel', serif;
+  width: 200px;
   &:hover, &:focus {
     border: solid 1px #282c34;
   }
