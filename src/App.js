@@ -4,6 +4,7 @@ import nodes from "./data/nodes.json";
 import links from "./data/links.json";
 import characters from "./data/characters.json";
 import { ForceDirectedGraph } from "./components/forceDirectedGraph";
+import { Header } from "./components/header";
 
 const App = () => {
   const renderTooltip = React.useCallback((node) => {
@@ -42,16 +43,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <header className="header">
-        <h1>Game&nbsp;of&nbsp;Thrones Character&nbsp;Network</h1>
-        <div className="filter">
-          <select id="selectList"></select>
-          <button id="selectStark">House Stark</button>
-          <button id="selectBaratheon">House Baratheon</button>
-          <button id="selectLannister">House Lannister</button>
-          <button id="selectTargaryen">House Targaryen</button>
-        </div>
-      </header>
+      <Header />
       <section className="main">
         <ForceDirectedGraph
           linksData={links}
