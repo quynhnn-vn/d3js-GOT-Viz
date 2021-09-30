@@ -7,6 +7,13 @@
   color: #282c34;
   background-color: white;
   background-image: url("../assets/header-background.jpg");
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 20px;
   @media (max-width: 700px) {
     h1 {
       display: inline;

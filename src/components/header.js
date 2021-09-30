@@ -1,10 +1,14 @@
 import React from "react";
 import "./header.scss";
+import { Soundtrack } from "./soundtrack";
 
 export const Header = () => {
   return (
     <header className="header">
-      <h1>Game&nbsp;of&nbsp;Thrones Character&nbsp;Network</h1>
+      <div className="title">
+        <h1>Game&nbsp;of&nbsp;Thrones Character&nbsp;Network</h1>
+        <Soundtrack />
+      </div>
       <div className="filterNav">
         <select id="selectList"></select>
         <div>
